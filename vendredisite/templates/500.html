@@ -1,0 +1,14 @@
+
+
+<script src="https://cdn.ravenjs.com/3.15.0/raven.min.js"></script>
+
+{% if request.sentry.id %}
+  <script>
+  Raven.showReportDialog({
+    eventId: '{{ request.sentry.id }}',
+
+    // use the public DSN (dont include your secret!)
+     dsn: 'https://dbd5a19953954d5cbc2b1080326ef285@sentry.io/1098542'
+  });
+  </script>
+{% endif %}

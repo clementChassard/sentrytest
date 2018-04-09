@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+{% load raven %}
+
+<script>Raven.config('{% sentry_public_dsn %}').install()</script>
+
+
+
+
+<form action="{% url 'uneApp:vide'  %}" method="post">
+{% csrf_token %}
+{% for choice in question.choice_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+{% endfor %}
+<input type="submit" value="Vote" />
+
+
+</form>
+
+<script src="https://cdn.ravenjs.com/3.15.0/raven.min.js"></script>
+
+{% if request.sentry.id %}
+  <script>
+    Raven.showReportDialog({
+        eventId: '{{ request.sentry.id }}',
+        dsn: 'https://dbd5a19953954d5cbc2b1080326ef285@sentry.io/1098542'
+    });
+  </script>
+{% endif %}
+
+
+
+
+</body>
+</html>
